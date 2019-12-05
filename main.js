@@ -18,13 +18,13 @@ disconnectButton.addEventListener('click', function () {
     disconnect();
 });
 
-// Connect to the device on Connect button click
+// LedOn to the device on Led On button click
 ledOn.addEventListener('click', function () {
     ledon();
 });
 
 
-// Disconnect from the device on Disconnect button click
+// LedOff to the device on Led Off button click
 ledOff.addEventListener('click', function () {
     ledoff();
 });
@@ -34,7 +34,7 @@ let deviceCache = null;
 
 // Launch Bluetooth device chooser and connect to the selected
 function connect() {
-    log('+connect6');
+    log('+connect7');
     return (deviceCache ? Promise.resolve(deviceCache) :
         requestBluetoothDevice()).
         then(device => connectDeviceAndCacheCharacteristic(device)).
@@ -52,10 +52,26 @@ function requestBluetoothDevice() {
             log('"' + device.name + '" bluetooth device selected');
             deviceCache = device;
 
+            deviceCache.addEventListener('gattserverdisconnected',
+            handleDisconnection);
+
             return deviceCache;
         });
         
 }
+
+function handleDisconnection(event) {
+
+    let device = event.target;
+  
+    log('"' + device.name +
+  
+        '" bluetooth device disconnected, trying to reconnect...');
+  
+    connectDeviceAndCacheCharacteristic(device).
+        then(characteristic => startNotifications(characteristic)). 
+        catch(error => log(error)); 
+  }
 
 
 
@@ -127,7 +143,27 @@ function log(data, type = '') {
 // Disconnect from the connected device
 function disconnect() {
 
-    //
+    if (deviceCache) {
+
+        log('Disconnecting from "' + deviceCache.name + '" bluetooth device...');
+    
+        deviceCache.removeEventListener('gattserverdisconnected',   
+            handleDisconnection);
+    
+        if (deviceCache.gatt.connected) {
+          deviceCache.gatt.disconnect();  
+          log('"' + deviceCache.name + '" bluetooth device disconnected');   
+        }
+    
+        else {
+    
+          log('"' + deviceCache.name +
+              '" bluetooth device is already disconnected');
+        }    
+      }
+        
+      characteristicCache = null;    
+      deviceCache = null; 
 
 }
 
