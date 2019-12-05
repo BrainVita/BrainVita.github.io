@@ -5,6 +5,7 @@ let connectButton = document.getElementById('connect');
 let disconnectButton = document.getElementById('disconnect');
 let ledOn = document.getElementById('ledon');
 let ledOff = document.getElementById('ledoff');
+let terminalContainer = document.getElementById('terminal');
 
 // Connect to the device on Connect button click
 connectButton.addEventListener('click', function () {
@@ -152,5 +153,15 @@ function send(data) {
     //
 
 }
+
+// Output to terminal
+
+function log(data, type = '') {
+
+    terminalContainer.insertAdjacentHTML('beforeend',
+  
+        '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
+  
+  }
 
 
