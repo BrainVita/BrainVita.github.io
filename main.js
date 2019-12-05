@@ -54,6 +54,7 @@ function requestBluetoothDevice() {
 
             return deviceCache;
         });
+        log('-connect');
 }
 
 
