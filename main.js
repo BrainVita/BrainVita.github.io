@@ -105,10 +105,14 @@ function startNotifications(characteristic) {
 
     log('Starting notifications...');
 
-    return characteristic.startNotifications().
-        then(() => {
-            log('Notifications started');
-        });
+  return characteristic.startNotifications().
+
+      then(() => {
+
+        log('Notifications started');
+
+      });
+    
 
 }
 
@@ -118,7 +122,10 @@ function startNotifications(characteristic) {
 
 function log(data, type = '') {
 
-    //
+    return characteristic.startNotifications().
+        then(() => {
+            log('Notifications started');
+        });
 
 }
 
