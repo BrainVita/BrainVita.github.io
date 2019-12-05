@@ -29,14 +29,6 @@ ledOff.addEventListener('click', function () {
     ledoff();
 });
 
-// Handle form submit event
-sendForm.addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent form sending
-    send(inputField.value); // Send text field contents
-    inputField.value = '';  // Zero text field
-    inputField.focus();     // Focus on text field
-});
-
 // Selected device object cache
 let deviceCache = null;
 
