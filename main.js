@@ -34,7 +34,7 @@ let deviceCache = null;
 
 // Launch Bluetooth device chooser and connect to the selected
 function connect() {
-    log('+connect');
+    log('+connect1');
     return (deviceCache ? Promise.resolve(deviceCache) :
         requestBluetoothDevice()).
         then(device => connectDeviceAndCacheCharacteristic(device)).
