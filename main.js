@@ -34,7 +34,7 @@ let deviceCache = null;
 
 // Launch Bluetooth device chooser and connect to the selected
 function connect() {
-    log('+connect4');
+    log('+connect5');
     return (deviceCache ? Promise.resolve(deviceCache) :
         requestBluetoothDevice()).
         then(device => connectDeviceAndCacheCharacteristic(device)).
@@ -46,7 +46,7 @@ function requestBluetoothDevice() {
 
     log('Requesting bluetooth device...');
     return navigator.bluetooth.requestDevice({
-        filters: [{ service: ['19b10000-e8f2-537e-4f6c-d104768a1214'] }],optionalServices: ['19b10000-e8f2-537e-4f6c-d104768a1214']
+        filters: [{ service: ['19b10000-e8f2-537e-4f6c-d104768a1214'] }]
     }).
         then(device => {
             log('"' + device.name + '" bluetooth device selected');
