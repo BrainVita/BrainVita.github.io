@@ -46,7 +46,7 @@ function requestBluetoothDevice() {
 
     log('Requesting bluetooth device...');
     return navigator.bluetooth.requestDevice({
-        filters: [{ services: ['19b10000-e8f2-537e-4f6c-d104768a1214'] }],
+        filters: [{ name: ['LED'] }],
     }).
         then(device => {
             log('"' + device.name + '" bluetooth device selected');
