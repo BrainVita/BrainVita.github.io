@@ -34,7 +34,7 @@ let deviceCache = null;
 
 // Launch Bluetooth device chooser and connect to the selected
 function connect() {
-    log('+connect7');
+    log('+connect8');
     return (deviceCache ? Promise.resolve(deviceCache) :
         requestBluetoothDevice()).
         then(device => connectDeviceAndCacheCharacteristic(device)).
@@ -170,7 +170,7 @@ function disconnect() {
 // Launch Bluetooth device chooser and connect to the selected
 function ledon() {
 
-    //
+    send('1');
 
 }
 
@@ -178,7 +178,7 @@ function ledon() {
 // Disconnect from the connected device
 function ledoff() {
 
-    //
+    send('0');
 
 }
 
@@ -187,9 +187,23 @@ function ledoff() {
 
 function send(data) {
 
-    //
+    data = String(data);
 
-}
+    if (!data || !characteristicCache) {  
+      return;
+    }
+  
+    writeToCharacteristic(characteristicCache, data);
+
+    log(data, 'out');
+  
+    }
+  
+function writeToCharacteristic(characteristic, data) {  
+    characteristic.writeValue(new TextEncoder().encode(data));
+}  
+ 
+
 
 // Output to terminal
 
