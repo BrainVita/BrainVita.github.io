@@ -115,18 +115,18 @@ function startNotifications(characteristic) {
 
     log('Starting notifications...');
 
-  return characteristic.startNotifications().
+    return characteristic.startNotifications().
 
-      then(() => {
+    then(() => {
 
         log('Notifications started');
 
-      });
-    
+        characteristic.addEventListener('characteristicvaluechanged',
+            handleCharacteristicValueChanged);
+           
+    });    
 
 }
-
-
 
 // Output to terminal
 
@@ -159,13 +159,31 @@ function disconnect() {
     
           log('"' + deviceCache.name +
               '" bluetooth device is already disconnected');
-        }    
-      }
-        
-      characteristicCache = null;    
+        }  
+
+    }
+
+    if (characteristicCache) {
+
+        characteristicCache.removeEventListener('characteristicvaluechanged',    
+            handleCharacteristicValueChanged);
+        characteristicCache = null;
+    
+    }
+            
       deviceCache = null; 
 
 }
+
+// Data receiving
+
+function handleCharacteristicValueChanged(event) {
+
+    let value = new TextDecoder().decode(event.target.value);
+  
+    log(value, 'in');
+  
+  }
 
 // Launch Bluetooth device chooser and connect to the selected
 function ledon() {
