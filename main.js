@@ -34,7 +34,7 @@ let deviceCache = null;
 
 // Launch Bluetooth device chooser and connect to the selected
 function connect() {
-    log('+connect9');
+    log('+connect10');
     return (deviceCache ? Promise.resolve(deviceCache) :
         requestBluetoothDevice()).
         then(device => connectDeviceAndCacheCharacteristic(device)).
@@ -188,7 +188,7 @@ function handleCharacteristicValueChanged(event) {
 // Launch Bluetooth device chooser and connect to the selected
 function ledon() {
 
-    send('1');
+    send('2');
 
 }
 
